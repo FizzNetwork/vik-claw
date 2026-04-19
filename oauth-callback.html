@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Big Vik Claw · OAuth Hop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { background: #0a0a14; color: #eeeef8; font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; display: grid; place-items: center; min-height: 100vh; margin: 0; }
+  .card { background: #10101e; border: 1px solid rgba(124,58,237,0.35); border-radius: 12px; padding: 36px 44px; max-width: 440px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.15); }
+  h1 { margin: 0 0 12px; font-size: 20px; color: #a78bff; }
+  p { margin: 8px 0; color: #9090b8; font-size: 14px; line-height: 1.5; }
+  code { font-family: 'JetBrains Mono', monospace; background: #171727; padding: 2px 6px; border-radius: 4px; color: #d4a843; font-size: 12px; }
+  .spinner { width: 30px; height: 30px; border: 3px solid rgba(124,58,237,0.2); border-top-color: #a78bff; border-radius: 50%; animation: spin 1s linear infinite; margin: 16px auto 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .manual { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(124,58,237,0.15); font-size: 12px; color: #5a5a78; }
+  .manual a { color: #a78bff; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="spinner"></div>
+  <h1 id="title">Connecting Big Vik Claw…</h1>
+  <p id="msg">Forwarding your authorization to the desktop app.</p>
+  <div class="manual">
+    If nothing happens after 5 seconds, Big Vik Claw may not be running on your computer. Start the app and retry, or <a href="#" id="manual">click here to complete manually</a>.
+  </div>
+</div>
+<script>
+  // Big Vik Claw OAuth hop. Providers that require HTTPS (e.g. Slack) point here.
+  // We just forward the auth code to the desktop app listening on localhost:8477.
+  //
+  // Expected URL shape:
+  //   https://fizznetwork.xyz/oauth-callback.html?provider=slack&code=abc&state=xyz
+  //   https://fizznetwork.xyz/oauth/callback/slack?code=abc&state=xyz   (if using path routing)
+  //
+  // First form uses ?provider=... query param. Second form uses the final path segment
+  // of the URL (slack). We handle both.
+  (function hop() {
+    var qs = new URLSearchParams(window.location.search);
+    var provider = qs.get('provider');
+    if (!provider) {
+      // Path-form: /oauth/callback/<provider>
+      var match = window.location.pathname.match(/\/oauth\/callback\/([a-z0-9_-]+)/i);
+      if (match) provider = match[1];
+    }
+    if (!provider) {
+      document.getElementById('title').textContent = 'Missing provider';
+      document.getElementById('msg').textContent = 'The redirect URL is missing a provider name. Check the OAuth app config.';
+      return;
+    }
+    var target = 'http://localhost:8477/oauth/callback/' + encodeURIComponent(provider) + '?' + window.location.search.slice(1);
+    // Remove provider= from search if it was an extra query param (keep code, state, scope, etc.)
+    if (qs.has('provider')) {
+      qs.delete('provider');
+      target = 'http://localhost:8477/oauth/callback/' + encodeURIComponent(provider) + '?' + qs.toString();
+    }
+    document.getElementById('manual').href = target;
+    // Auto-forward after ~800ms so the user sees the hop page briefly (less jarring)
+    setTimeout(function () { window.location.replace(target); }, 800);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Big Vik Claw — Desktop AI by 1UP Media Group</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A dual-persona desktop AI assistant. Vik for building. Viki for posting. Your tools, your API keys, your machine. No lock-in.">
+<meta name="theme-color" content="#0a0a14">
+<meta property="og:title" content="Big Vik Claw — Desktop AI">
+<meta property="og:description" content="Dual-persona desktop AI. Vik for building, Viki for posting. 15+ social platforms. OAuth connectors. MCP server. Runs local.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://claw.viktim.xyz">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<style>
+  :root {
+    --bg: #0a0a14;
+    --surface: #10101e;
+    --surface2: #171727;
+    --border: rgba(124,58,237,0.15);
+    --border-strong: rgba(124,58,237,0.35);
+    --accent: #7c3aed;
+    --accent2: #a78bff;
+    --gold: #d4a843;
+    --pink: #ff4fb5;
+    --green: #00e599;
+    --text: #eeeef8;
+    --text2: #9090b8;
+    --text3: #5a5a78;
+    --font-sans: -apple-system, BlinkMacSystemFont, system-ui, 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; line-height: 1.6; }
+  body { background: radial-gradient(ellipse at top, rgba(124,58,237,0.08), transparent 50%), var(--bg); min-height: 100vh; }
+  a { color: var(--accent2); text-decoration: none; }
+  a:hover { color: var(--accent); }
+  code, pre { font-family: var(--font-mono); font-size: 13px; }
+  pre { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; overflow-x: auto; color: var(--text); }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header { padding: 24px 0; border-bottom: 1px solid var(--border); }
+  header .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; letter-spacing: 0.02em; }
+  .logo-mark { width: 28px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, var(--accent), var(--pink)); display: grid; place-items: center; color: #fff; font-family: var(--font-mono); font-weight: 700; font-size: 14px; }
+  .nav { display: flex; gap: 24px; font-size: 14px; color: var(--text2); }
+  .nav a { color: var(--text2); }
+  .nav a:hover { color: var(--text); }
+  .beta-tag { font-family: var(--font-mono); font-size: 10px; background: rgba(212,168,67,0.15); color: var(--gold); border: 1px solid rgba(212,168,67,0.3); padding: 2px 8px; border-radius: 4px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* Hero */
+  .hero { padding: 88px 0 64px; text-align: center; }
+  .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 20px; background: linear-gradient(135deg, var(--text) 30%, var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero .tagline { font-size: clamp(16px, 2vw, 20px); color: var(--text2); max-width: 620px; margin: 0 auto 32px; }
+  .hero .personas { display: inline-flex; gap: 8px; margin-bottom: 32px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; }
+  .chip { padding: 4px 10px; border-radius: 4px; border: 1px solid; text-transform: uppercase; }
+  .chip.he { background: rgba(212,168,67,0.12); color: var(--gold); border-color: rgba(212,168,67,0.3); }
+  .chip.she { background: rgba(255,79,181,0.12); color: var(--pink); border-color: rgba(255,79,181,0.3); }
+  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; border-radius: 8px; font-weight: 600; font-size: 15px; transition: all 0.2s; cursor: pointer; border: 1px solid transparent; }
+  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #6d2ad0; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+  .btn.ghost { background: transparent; color: var(--text); border-color: var(--border-strong); }
+  .btn.ghost:hover { background: var(--surface2); border-color: var(--accent); }
+  .os-grid { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px; font-family: var(--font-mono); font-size: 12px; color: var(--text3); }
+  .os-grid span { padding: 4px 10px; border: 1px dashed var(--border-strong); border-radius: 4px; }
+
+  /* Sections */
+  section { padding: 64px 0; }
+  section h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 12px; }
+  section .section-kicker { font-family: var(--font-mono); font-size: 12px; color: var(--accent2); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+  section .section-sub { color: var(--text2); max-width: 680px; margin: 0 0 36px; }
+
+  /* Feature grid */
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .feature { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.2s; }
+  .feature:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .feature .f-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(124,58,237,0.15); display: grid; place-items: center; margin-bottom: 12px; font-size: 16px; color: var(--accent2); }
+  .feature h3 { font-size: 16px; font-weight: 600; margin: 0 0 8px; }
+  .feature p { color: var(--text2); font-size: 14px; margin: 0; }
+
+  /* Integrations strip */
+  .integrations { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .integration-pill { padding: 6px 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; font-family: var(--font-mono); font-size: 12px; color: var(--text2); }
+
+  /* Code section */
+  .code-label { font-family: var(--font-mono); font-size: 11px; color: var(--text3); margin-bottom: 4px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .code-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 24px; }
+  .code-caption { font-size: 14px; color: var(--text2); margin-top: 8px; }
+
+  /* Screenshots */
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 32px; }
+  .shot { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; aspect-ratio: 16/10; display: grid; place-items: center; color: var(--text3); font-family: var(--font-mono); font-size: 11px; }
+  .shot img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+
+  /* Footer */
+  footer { padding: 40px 0 60px; border-top: 1px solid var(--border); margin-top: 64px; color: var(--text3); font-size: 13px; }
+  footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .hero { padding: 48px 0 32px; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <div class="logo-mark">V</div>
+      <span>Big Vik Claw</span>
+      <span class="beta-tag">Beta</span>
+    </div>
+    <nav class="nav">
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#mcp">MCP</a>
+      <a href="https://github.com/FizzNetwork/bigvik-claw">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="personas">
+      <span class="chip he">Vik · He</span>
+      <span class="chip she">Viki · She</span>
+    </div>
+    <h1>Desktop AI with two sides and no lock-in.</h1>
+    <p class="tagline">Vik builds. Viki posts. One desktop app. Your API keys, your tools, your machine. Connects into Claude, ChatGPT, Cursor via MCP.</p>
+    <div class="cta">
+      <a href="#install" class="btn primary">Download for Windows</a>
+      <a href="#mcp" class="btn ghost">Use via Claude Desktop</a>
+    </div>
+    <div class="os-grid">
+      <span>Windows 10/11 · signed NSIS installer</span>
+      <span>macOS · Apple Silicon + Intel</span>
+      <span>Linux · AppImage</span>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <div class="section-kicker">What it does</div>
+    <h2>Two agents. One shell.</h2>
+    <p class="section-sub">Vik (he) is your dev partner — reads code, runs tools, manages files, calls community MCP servers. Viki (she) is your social engine — researches crypto, generates posts, schedules across 15+ platforms.</p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="f-icon">⚡</div>
+        <h3>Bring your own models</h3>
+        <p>Claude, OpenAI, DeepSeek, xAI, Ollama. Any key, any model. We don't charge per message.</p>
+      </div>
+      <div class="feature">
+        <div class="f-icon">🔌</div>
+        <h3>OAuth connectors</h3>
+        <p>Google (Gmail / Sheets / Calendar / Drive), GitHub, Slack, Notion, Figma, Spotify — one-click Connect, browser approve, done.</p>
+      </div>
+      <div class="feature">
+        <div class="f-icon">🤖</div>
+        <h3>MCP client + server</h3>
+        <p>Call any community MCP server from Vik. Expose Vik's tools to Claude Desktop / ChatGPT / Cursor / Zed via MCP.</p>
+      </div>
+      <div class="feature">
+        <div class="f-icon">📱</div>
+        <h3>Social posting at scale</h3>
+        <p>15+ platforms built in. Twitter/X, Telegram, Discord, Bluesky, Mastodon, Reddit, LinkedIn, TikTok, YouTube Shorts, Threads, Farcaster, Warpcast, Lens, Nostr. Schedule 90 days out.</p>
+      </div>
+      <div class="feature">
+        <div class="f-icon">🧠</div>
+        <h3>Agent tiles</h3>
+        <p>Drag-drop system prompts. Pre-built personas: FizzNet, Claw Builder. Make your own.</p>
+      </div>
+      <div class="feature">
+        <div class="f-icon">🔒</div>
+        <h3>Your keys stay local</h3>
+        <p>API keys live in <code>%APPDATA%\BigVik\vault\</code>. Never touch our servers. Never round-trip through us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="integrations" style="background:var(--surface);">
+  <div class="container">
+    <div class="section-kicker">Plugs into</div>
+    <h2>Works with what you already use.</h2>
+    <div class="integrations">
+      <span class="integration-pill">Claude Desktop</span>
+      <span class="integration-pill">ChatGPT</span>
+      <span class="integration-pill">Cursor</span>
+      <span class="integration-pill">Zed</span>
+      <span class="integration-pill">Ollama</span>
+      <span class="integration-pill">Telegram</span>
+      <span class="integration-pill">Discord</span>
+      <span class="integration-pill">Gmail</span>
+      <span class="integration-pill">Google Sheets</span>
+      <span class="integration-pill">Google Calendar</span>
+      <span class="integration-pill">Google Drive</span>
+      <span class="integration-pill">GitHub</span>
+      <span class="integration-pill">Slack</span>
+      <span class="integration-pill">Notion</span>
+      <span class="integration-pill">Figma</span>
+      <span class="integration-pill">Spotify</span>
+      <span class="integration-pill">Twitter / X</span>
+      <span class="integration-pill">Bluesky</span>
+      <span class="integration-pill">Mastodon</span>
+      <span class="integration-pill">Reddit</span>
+      <span class="integration-pill">LinkedIn</span>
+      <span class="integration-pill">TikTok</span>
+      <span class="integration-pill">YouTube Shorts</span>
+      <span class="integration-pill">Threads</span>
+      <span class="integration-pill">Farcaster</span>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="container">
+    <div class="section-kicker">Install</div>
+    <h2>Pick your platform.</h2>
+    <p class="section-sub">Download the signed installer. First launch asks for an unlock code — paste yours or start a 7-day trial.</p>
+
+    <div class="shots">
+      <a class="shot" href="#" id="dl-win">Windows · BigVik Setup.exe</a>
+      <a class="shot" href="#" id="dl-mac">macOS · BigVik.dmg</a>
+      <a class="shot" href="#" id="dl-linux">Linux · BigVik.AppImage</a>
+    </div>
+    <p class="code-caption">Replace these with real GitHub release asset URLs: <code>https://github.com/FizzNetwork/bigvik-claw/releases/latest</code></p>
+  </div>
+</section>
+
+<section id="mcp" style="background:var(--surface);">
+  <div class="container">
+    <div class="section-kicker">Model Context Protocol</div>
+    <h2>Use Vik from Claude, ChatGPT, Cursor.</h2>
+    <p class="section-sub">Big Vik Claw ships as an MCP server. One config line in your AI client, Vik's tools show up.</p>
+
+    <div class="code-grid">
+      <div>
+        <div class="code-label">Claude Desktop config (claude_desktop_config.json)</div>
+<pre><code>{
+  "mcpServers": {
+    "vik": {
+      "command": "npx",
+      "args": ["-y", "@fizznetwork/vik-mcp-server"]
+    }
+  }
+}</code></pre>
+        <p class="code-caption">Restart Claude Desktop. Open any chat. Ask "list my scheduled posts" — Claude calls Vik's tools.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="container">
+    <div class="section-kicker">In the wild</div>
+    <h2>Quick tour.</h2>
+    <div class="shots">
+      <div class="shot">screenshot · chat with Vik</div>
+      <div class="shot">screenshot · Viki scheduling posts</div>
+      <div class="shot">screenshot · Connections panel</div>
+      <div class="shot">screenshot · MCP servers</div>
+    </div>
+    <p class="code-caption">Drop real PNGs into <code>/screenshots/</code> and swap the div tags for <code>&lt;img&gt;</code> elements.</p>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container" style="text-align:center;">
+    <h2>Start now.</h2>
+    <p class="section-sub" style="margin: 0 auto 24px;">7-day trial. No card. Keys are yours.</p>
+    <div class="cta">
+      <a href="#install" class="btn primary">Download</a>
+      <a href="https://github.com/FizzNetwork/bigvik-claw" class="btn ghost">Source on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>&copy; 2026 <a href="https://fizznetwork.xyz">FizzNetwork.xyz</a> · 1UP Media Group</div>
+    <div>
+      <a href="https://github.com/FizzNetwork/bigvik-claw">GitHub</a> ·
+      <a href="https://github.com/FizzNetwork/bigvik-claw/issues">Issues</a> ·
+      <a href="mailto:officialfizznet@gmail.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
