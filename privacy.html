@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy Policy - Big Vik Claw</title>
+<meta name="description" content="Big Vik Claw privacy policy. No telemetry. No data collection. Your keys, your machine.">
+<style>
+  :root { --bg:#0a0a0f; --ink:#e8e8f0; --dim:#8a8a9a; --accent:#4a9eff; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; padding:0; background:var(--bg); color:var(--ink); font:500 16px/1.7 -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif; }
+  .wrap { max-width:720px; margin:0 auto; padding:60px 24px 80px; }
+  h1 { font-size:32px; margin:0 0 8px; letter-spacing:-0.01em; font-weight:800; }
+  h2 { font-size:20px; margin:32px 0 12px; font-weight:700; color:var(--ink); }
+  .meta { color:var(--dim); font-size:14px; margin:0 0 32px; }
+  p { margin:0 0 14px; }
+  ul { margin:0 0 14px; padding-left:22px; }
+  li { margin:4px 0; }
+  code { background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px; font-size:14px; }
+  a { color:var(--accent); }
+  a:hover { text-decoration:underline; }
+  hr { border:0; border-top:1px solid rgba(255,255,255,0.08); margin:40px 0 24px; }
+  footer { color:var(--dim); font-size:14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Privacy Policy</h1>
+  <p class="meta">Effective 2026-04-19 &middot; Big Vik Claw (Beta) &middot; FizzNetwork.xyz / 1UP Media Group</p>
+
+  <h2>What we collect</h2>
+  <p><strong>Nothing.</strong> Big Vik Claw does not operate any servers that process your data. All AI model calls go directly from your machine to the provider you configured (Anthropic, OpenAI, DeepSeek, xAI, Ollama). All OAuth tokens and credentials are stored locally in <code>%APPDATA%\BigVik\vault\</code> on Windows (or the equivalent on macOS/Linux). We have no telemetry, no analytics endpoints, and no "home-call" pings.</p>
+
+  <h2>What we never do</h2>
+  <ul>
+    <li>We do not collect, transmit, or store your API keys.</li>
+    <li>We do not intercept, log, or share your AI conversations.</li>
+    <li>We do not sell or share any data with third parties.</li>
+    <li>We do not show ads, anywhere, ever.</li>
+    <li>We do not require an account on our servers. The app runs fully local except for the AI provider calls you explicitly configure.</li>
+  </ul>
+
+  <h2>OAuth connectors</h2>
+  <p>When you connect Gmail, Slack, Notion, Figma, Spotify, or any other third-party service via OAuth, Big Vik Claw holds the refresh token locally (encrypted-at-rest via Windows DPAPI / macOS Keychain / Linux secret-service where available). Big Vik Claw uses that token only to make the API calls you direct it to make. The third-party service has its own privacy policy which governs data on their side.</p>
+
+  <h2>Unlock code + trial</h2>
+  <p>Big Vik Claw offers a 7-day trial, after which an unlock code is required. The unlock code is validated by a public key embedded in the app — your trial and unlock status is computed locally. We do not track trial starts, unlock activations, or app usage.</p>
+
+  <h2>Telegram bridge</h2>
+  <p>If you enable the optional Telegram bridge, your messages are sent from your desktop to Telegram's servers to be delivered to Vik (or your configured bot). Telegram's privacy policy applies to message transport. Big Vik Claw stores the bridge configuration (bot token, chat IDs) locally and logs conversation history locally for context continuity. None of this is sent to us.</p>
+
+  <h2>Crash reports</h2>
+  <p>If the app crashes, details are written to a local log file in <code>%APPDATA%\BigVik\vault\</code>. We do not auto-upload crash reports. If you choose to share a crash log to get help, that is your explicit action.</p>
+
+  <h2>Children</h2>
+  <p>Big Vik Claw is not directed at children under 13 and we do not knowingly collect data from anyone regardless of age (because we do not collect data at all).</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If the policy changes, the new version will be posted here with a new effective date. Since we do not collect personal data, there is no data to migrate or notify you about — the update only affects future behavior of the app.</p>
+
+  <h2>Contact</h2>
+  <p>Questions, concerns, or bug reports: <a href="mailto:officialfizznet@gmail.com">officialfizznet@gmail.com</a></p>
+
+  <hr>
+  <footer><a href="/">Back to claw.viktim.xyz</a> &middot; <a href="https://fizznetwork.xyz">FizzNetwork.xyz</a></footer>
+</div>
+</body>
+</html>
