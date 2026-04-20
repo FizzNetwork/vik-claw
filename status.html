@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Status — Big Vik Claw</title>
+<meta name="description" content="Big Vik Claw service status — component versions, local BVC health check.">
+<meta property="og:image" content="https://claw.viktim.xyz/og-image.svg">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+  :root { --bg:#0a0a0f; --ink:#e8e8f0; --dim:#8a8a9a; --accent:#4a9eff; --good:#4ade80; --warn:#f59e0b; --bad:#ef4444; --border:rgba(255,255,255,0.08); }
+  * { box-sizing:border-box; }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:500 16px/1.7 -apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:60px 24px 80px;}
+  h1{font-size:32px;margin:0 0 8px;font-weight:800;letter-spacing:-0.01em;}
+  .meta{color:var(--dim);font-size:14px;margin:0 0 32px;}
+  h2{font-size:20px;margin:32px 0 12px;font-weight:700;}
+  .row{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;}
+  .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);box-shadow:0 0 12px rgba(74,222,128,0.4);}
+  .dot.warn{background:var(--warn);}
+  .dot.bad{background:var(--bad);}
+  .dot.unknown{background:var(--dim);}
+  .label{font-weight:600;flex:1;}
+  .value{color:var(--dim);font-size:14px;font-family:monospace;}
+  .value a{color:var(--accent);text-decoration:none;}
+  .value a:hover{text-decoration:underline;}
+  code{background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;font-size:14px;}
+  footer{color:var(--dim);font-size:14px;margin-top:48px;}
+  footer a{color:var(--dim);border-bottom:1px dotted var(--dim);text-decoration:none;}
+  footer a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+  .local-box{margin-top:24px;padding:16px;border:1px dashed var(--border);border-radius:12px;background:rgba(74,158,255,0.04);}
+  .local-box p{margin:0 0 8px;}
+  button.probe-btn{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer;font-size:14px;}
+  button.probe-btn:hover{opacity:0.9;}
+  #probe-result{margin-top:12px;font-family:monospace;font-size:13px;color:var(--dim);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Status</h1>
+  <p class="meta">Real-time component state. Static values below are hand-updated on release; live check is client-side.</p>
+
+  <h2>Public surfaces</h2>
+
+  <div class="row">
+    <div class="dot good"></div>
+    <div class="label">Landing page (claw.viktim.xyz)</div>
+    <div class="value">live</div>
+  </div>
+
+  <div class="row">
+    <div class="dot good"></div>
+    <div class="label">MCP package (npm)</div>
+    <div class="value"><a href="https://npm.im/@fizznetwork/vik-mcp-server">v1.1.1</a></div>
+  </div>
+
+  <div class="row">
+    <div class="dot good"></div>
+    <div class="label">Desktop installer (Windows)</div>
+    <div class="value"><a href="https://github.com/FizzNetwork/bigvik-claw-releases/releases/latest">v8.3.123-beta1</a></div>
+  </div>
+
+  <div class="row">
+    <div class="dot warn"></div>
+    <div class="label">Desktop installer (macOS)</div>
+    <div class="value">coming soon</div>
+  </div>
+
+  <div class="row">
+    <div class="dot warn"></div>
+    <div class="label">Desktop installer (Linux)</div>
+    <div class="value">coming soon</div>
+  </div>
+
+  <div class="row">
+    <div class="dot warn"></div>
+    <div class="label">Mobile (MVC)</div>
+    <div class="value">v2.0.0-beta · Expo dev only, TestFlight/Play later</div>
+  </div>
+
+  <h2>Downloads</h2>
+
+  <div class="row">
+    <div class="dot good"></div>
+    <div class="label">MCP npm downloads</div>
+    <div class="value"><img src="https://img.shields.io/npm/dm/@fizznetwork/vik-mcp-server.svg?style=flat-square&color=4a9eff" alt="npm downloads" style="vertical-align:middle;"></div>
+  </div>
+
+  <div class="row">
+    <div class="dot good"></div>
+    <div class="label">GitHub release downloads</div>
+    <div class="value"><img src="https://img.shields.io/github/downloads/FizzNetwork/bigvik-claw-releases/total.svg?style=flat-square&color=4a9eff" alt="github releases" style="vertical-align:middle;"></div>
+  </div>
+
+  <h2>Your local BVC (runs on your machine)</h2>
+
+  <div class="local-box">
+    <p>If Big Vik Claw is running on this computer, the button below will ping it on <code>localhost:8477</code>.</p>
+    <button class="probe-btn" onclick="probeLocal()">Check my local BVC</button>
+    <div id="probe-result">not checked yet</div>
+  </div>
+
+  <footer>
+    <p><a href="/">Back to claw.viktim.xyz</a> · <a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    <p>Questions or bugs: <a href="https://github.com/FizzNetwork/bigvik-claw-releases/issues/new/choose">report an issue</a> · <a href="mailto:officialfizznet@gmail.com">email</a></p>
+  </footer>
+</div>
+
+<script>
+async function probeLocal() {
+  const el = document.getElementById('probe-result');
+  el.textContent = 'pinging localhost:8477...';
+  try {
+    const r = await fetch('http://localhost:8477/bridge/health', { method: 'GET' });
+    if (r.ok) {
+      const j = await r.json();
+      el.textContent = '🟢 BVC is running. version: ' + (j.version || 'unknown') + ' · backend ready: ' + (j.backend_ready ? 'yes' : 'no');
+      el.style.color = '#4ade80';
+    } else {
+      el.textContent = '🔴 BVC responded ' + r.status + ' (running but unhealthy)';
+      el.style.color = '#f59e0b';
+    }
+  } catch (e) {
+    el.textContent = '🔴 BVC is not running on this machine. Install + launch it, then try again.';
+    el.style.color = '#ef4444';
+  }
+}
+</script>
+</body>
+</html>

@@ -19,6 +19,18 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://claw.viktim.xyz/terms</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://claw.viktim.xyz/status</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://claw.viktim.xyz/oauth-callback</loc>
     <changefreq>never</changefreq>
     <priority>0.1</priority>
