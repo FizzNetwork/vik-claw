@@ -52,6 +52,11 @@
   <h2>Crash reports</h2>
   <p>If the app crashes, details are written to a local log file in <code>%APPDATA%\BigVik\vault\</code>. We do not auto-upload crash reports. If you choose to share a crash log to get help, that is your explicit action.</p>
 
+  <h2>Optional: 1UP XP sync</h2>
+  <p>Big Vik Claw has an <strong>opt-in</strong> feature to sync usage events to your 1UP Network XP engine (<code>stats.1upnetwork.xyz</code>). <strong>It is off by default</strong>. Nothing is sent unless you explicitly enable it in Settings.</p>
+  <p>When enabled, BVC generates an anonymous install UUID (stored locally as <code>xp-sync.json</code>), fetches a JWT tied to that UUID, and sends only the events you've agreed to send. Event types include: app install, daily open, chat message sent, tool invocation, OAuth connector connected, brand card created, scheduled post created, scheduled post fired. No chat contents, no API keys, no file contents, no personally-identifying data leaves your machine — only the event name and a small metadata envelope (e.g. which tool was called).</p>
+  <p>You can disable XP sync at any time from Settings → 1UP XP Sync. On disable, no further events are sent; previously-recorded events in your xp_ledger remain unless you request deletion via <a href="mailto:officialfizznet@gmail.com">email</a>.</p>
+
   <h2>Children</h2>
   <p>Big Vik Claw is not directed at children under 13 and we do not knowingly collect data from anyone regardless of age (because we do not collect data at all).</p>
 
